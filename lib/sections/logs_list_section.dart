@@ -1,36 +1,36 @@
+import 'package:call_log/call_log.dart';
 import 'package:chalk/utils/colors.dart';
 import 'package:flutter/material.dart';
 
-class ContactsList extends StatelessWidget {
-  final List<String> contacts;
+class LogsList extends StatelessWidget {
+  final Iterable<CallLogEntry> logs;
 
-  const ContactsList({required this.contacts});
+  const LogsList({required this.logs});
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 1000,
       width: 400,
+      height: 1000,
       child: SingleChildScrollView(
         child: Container(
-          width: 400,
           height: 1000,
+          width: 400,
           child: ListView.builder(
-            itemCount: contacts.length,
+            itemCount: logs.length,
             itemBuilder: (context, index) {
-              final contact =
-                  contacts[index].isEmpty ? "null" : contacts[index];
+              final contactName = logs.elementAt(index).name ?? "null";
               return ListTile(
                 leading: CircleAvatar(
                   child: Text(
-                    contact.isEmpty ? "N" : contact.substring(0, 1),
+                    contactName.isEmpty ? "N" : contactName.substring(0, 1),
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),
                 title: Text(
-                  contact,
+                  contactName,
                   style: TextStyle(
                     fontSize: 16.0,
                     fontWeight: FontWeight.bold,
@@ -53,18 +53,18 @@ class ContactsList extends StatelessWidget {
         height: 10,
       ),
       itemBuilder: (context, index) {
-        final contact = contacts[index];
+        final log = logs.elementAt(index);
         return ListTile(
           leading: CircleAvatar(
             child: Text(
-              contact.substring(0, 1),
+              log.name!.substring(0, 1),
               style: TextStyle(
                 fontWeight: FontWeight.bold,
               ),
             ),
           ),
           title: Text(
-            contact,
+            log.name!,
             style: TextStyle(
               fontSize: 16.0,
               fontWeight: FontWeight.bold,

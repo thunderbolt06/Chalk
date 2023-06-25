@@ -1,5 +1,7 @@
 import 'package:chalk/pages/connecting_page.dart';
 import 'package:chalk/pages/home_page.dart';
+import 'package:chalk/sections/circles_painter.dart';
+import 'package:chalk/utils/colors.dart';
 import 'package:chalk/utils/on_tap_navigator.dart';
 import 'package:flutter/material.dart';
 
@@ -52,8 +54,6 @@ class _ConnectedPageState extends State<ConnectedPage> {
     final Size screenSize = MediaQuery.of(context).size;
     final double screenWidth = screenSize.width;
     final double screenHeight = screenSize.height;
-    var appState = context.watch<MyAppState>();
-    var color = appState.color;
     TextStyle userNameStyle = TextStyle(
       fontSize: 28,
       fontWeight: FontWeight.bold,
@@ -69,7 +69,7 @@ class _ConnectedPageState extends State<ConnectedPage> {
             right: screenWidth / 2 - 100,
             child: CustomPaint(
               size: Size(200, 200), // Set the desired size for the circles
-              painter: CirclesPainter(color: color),
+              painter: CirclesPainter(),
             ),
           ),
           Positioned(
@@ -95,7 +95,7 @@ class _ConnectedPageState extends State<ConnectedPage> {
             top: screenHeight / 2 + screenWidth / 4 - 20,
             left: screenWidth / 2 - 100, // change to relative,
             child: ChalkButton(
-              color: color['six']!,
+              color: MyColors.six,
               text: 'Speaker',
               next: ConnectingPage(),
             ),
@@ -106,7 +106,7 @@ class _ConnectedPageState extends State<ConnectedPage> {
             child: OnTapNavigator(
                 next: ConnectingPage(),
                 child: ChalkButton(
-                  color: color['seven']!,
+                  color: MyColors.seven,
                   text: 'Mute',
                   next: ConnectedPage(),
                 )),
@@ -124,7 +124,7 @@ class _ConnectedPageState extends State<ConnectedPage> {
             top: screenHeight / 2 - 50,
             left: screenWidth / 2 - 50, // change to relative,
             child: Image.asset(
-              'ameya-pic.png',
+              'assets/ameya-pic.png',
               width: 100,
               height: 100,
             ),
@@ -132,70 +132,5 @@ class _ConnectedPageState extends State<ConnectedPage> {
         ],
       ),
     );
-  }
-}
-
-class CirclesPainter extends CustomPainter {
-  Map<String, Color> color;
-  CirclesPainter({required this.color});
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final center = Offset(size.width / 2, size.height / 2);
-    final radius1 = size.width / 2;
-    final radius2 = radius1 * 10;
-    final radius3 = radius1 * 3;
-    final radius4 = radius1 * 5;
-
-    final paint1 = Paint()..color = color['one']!;
-    final paint2 = Paint()..color = color['two']!;
-    final paint3 = Paint()..color = color['three']!;
-    final paint4 = Paint()..color = color['four']!;
-
-    canvas.drawCircle(center, radius4, paint4);
-    canvas.drawCircle(center, radius3, paint3);
-    canvas.drawCircle(center, radius2, paint2);
-    canvas.drawCircle(center, radius1, paint1);
-
-    final chalkTextStyle = TextStyle(
-      color: Colors.black,
-      fontSize: 28,
-      fontWeight: FontWeight.bold,
-    );
-    final chalkTextSpan = TextSpan(
-      text: 'Chalk',
-      style: chalkTextStyle,
-    );
-    final chalkTextPainter = TextPainter(
-      text: chalkTextSpan,
-      textDirection: TextDirection.ltr,
-    );
-    chalkTextPainter.layout();
-    final chalkTextCenter = Offset(center.dx - chalkTextPainter.width / 2,
-        center.dy - radius1 * 3.4 - chalkTextPainter.height / 2);
-    chalkTextPainter.paint(canvas, chalkTextCenter);
-
-    final textStyle = TextStyle(
-      color: Colors.black,
-      fontSize: 28,
-      fontWeight: FontWeight.bold,
-    );
-    final textSpan = TextSpan(
-      text: 'Chalk',
-      style: textStyle,
-    );
-    final textPainter = TextPainter(
-      text: textSpan,
-      textDirection: TextDirection.ltr,
-    );
-    textPainter.layout();
-    final textCenter = Offset(center.dx - textPainter.width / 2,
-        center.dy - radius1 * 3.4 - textPainter.height / 2);
-    textPainter.paint(canvas, textCenter);
-  }
-
-  @override
-  bool shouldRepaint(CustomPainter oldDelegate) {
-    return false;
   }
 }

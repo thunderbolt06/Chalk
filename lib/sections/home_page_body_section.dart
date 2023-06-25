@@ -1,21 +1,15 @@
 import 'package:chalk/sections/quick_picks_section.dart';
 import 'package:chalk/sections/start_connecting_section.dart';
+import 'package:chalk/utils/colors.dart';
 import 'package:flutter/material.dart';
 
 class HomePageBodySection extends StatelessWidget {
-  const HomePageBodySection({
-    super.key,
-    required this.color,
-  });
-
-  final Map<String, Color> color;
-
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [color['two']!, Colors.white], // Set your desired colors here
+          colors: [MyColors.two, Colors.white], // Set your desired colors here
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
         ),
@@ -29,6 +23,7 @@ class HomePageBodySection extends StatelessWidget {
               // AppHeader(),
               SizedBox(height: 16.0),
               Center(child: StartConnectingSection()),
+              SizedBox(height: 30.0),
               QuickPicksSection(), // Add more widgets here as needed
             ],
           ),

@@ -1,12 +1,11 @@
 import 'package:chalk/pages/contacts_page.dart';
 import 'package:chalk/pages/logs_page.dart';
 import 'package:chalk/sections/home_page_body_section.dart';
+import 'package:chalk/utils/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 import '../sections/bottom_nav_bar.dart';
 import '../sections/header_section.dart';
-import '../main.dart';
 
 class MyHomePage extends StatefulWidget {
   @override
@@ -18,12 +17,10 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    var appState = context.watch<MyAppState>();
-    var color = appState.color;
     Widget page;
     switch (selectedIndex) {
       case 0:
-        page = HomePageBodySection(color: color);
+        page = HomePageBodySection();
         break;
       case 1:
         page = LogsPage();
@@ -48,7 +45,7 @@ class _MyHomePageState extends State<MyHomePage> {
           appBar: AppBar(
             automaticallyImplyLeading: false, // Remove back button
             title: AppHeader(),
-            backgroundColor: color['two'],
+            backgroundColor: MyColors.two,
           ),
           body: page,
           bottomNavigationBar: BottmNavBar(onItemTapped: onItemTapped),

@@ -35,4 +35,6 @@ class MyAppState extends ChangeNotifier {
     'six': Color(0xFF0E5194),
     'seven': Color(0xFF09722B),
   };
+
+  List<String> quickPicks = List.empty(growable: true);
 }

@@ -9,7 +9,7 @@ class AppHeader extends StatelessWidget {
         Row(
           children: <Widget>[
             Image.asset(
-              'logo.png', // Replace with your logo image
+              'assets/logo.png', // Replace with your logo image
               width: 48.0,
               height: 48.0,
             ),

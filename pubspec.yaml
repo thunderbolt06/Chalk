@@ -10,6 +10,9 @@ environment:
 
 dependencies:
 
+  contacts_service: ^0.6.3
+  call_log: ^4.0.0
+  permission_handler: ^10.3.0
   flutter:
     sdk: flutter
 
@@ -30,7 +33,12 @@ dev_dependencies:
 
 
 flutter:
+  # The following line ensures that the Material Icons font is
+  # included with your application, so that you can use the icons in
+  # the material Icons class.
   uses-material-design: true
+
+  # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/logo.png
-    - assets/startConnecting.png
+    - assets/
+
