@@ -1,9 +1,11 @@
+import 'package:chalk/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'pages/home_page.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(ChangeNotifierProvider(
+      create: (context) => UserProvider(), child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {

@@ -22,19 +22,19 @@ class ContactsList extends StatelessWidget {
                   contacts[index].isEmpty ? "null" : contacts[index];
               return ListTile(
                 leading: CircleAvatar(
+                  backgroundColor: MyColors.one,
                   child: Text(
                     contact.isEmpty ? "N" : contact.substring(0, 1),
                     style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                    ),
+                        fontWeight: FontWeight.bold, color: Colors.black),
                   ),
                 ),
                 title: Text(
                   contact,
                   style: TextStyle(
-                    fontSize: 16.0,
-                    fontWeight: FontWeight.bold,
-                  ),
+                      fontSize: 16.0,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black),
                 ),
                 onTap: () {
                   // Handle contact item tap

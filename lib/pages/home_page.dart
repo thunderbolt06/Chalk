@@ -1,8 +1,10 @@
 import 'package:chalk/pages/contacts_page.dart';
 import 'package:chalk/pages/logs_page.dart';
+import 'package:chalk/provider.dart';
 import 'package:chalk/sections/home_page_body_section.dart';
 import 'package:chalk/utils/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../sections/bottom_nav_bar.dart';
 import '../sections/header_section.dart';
@@ -17,6 +19,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<UserProvider>(context).user;
+
     Widget page;
     switch (selectedIndex) {
       case 0:
