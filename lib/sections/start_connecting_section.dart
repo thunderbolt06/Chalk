@@ -1,9 +1,12 @@
-import 'package:chalk/services/api_service.dart';
+import 'package:chalk/services/temp_service.dart';
 import 'package:chalk/utils/colors.dart';
 import 'package:chalk/utils/on_tap_navigator.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-import '../pages/connecting_page.dart';
+import '../pages/searching_page.dart';
+import '../provider.dart';
+import '../services/api_service.dart';
 
 class StartConnectingSection extends StatelessWidget {
   late String responseData;
@@ -19,14 +22,17 @@ class StartConnectingSection extends StatelessWidget {
           ),
           child: GestureDetector(
             onTap: () async {
+              if (sendToLogin(context)) {
+                return;
+              }
+              Provider.of<UserProvider>(context, listen: false)
+                  .setStatus("searching");
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => ConnectingPage(),
+                  builder: (context) => SearchingPage(),
                 ),
               );
-              // String data = await fetchHelloWorld();
-              // print(data);
               print("tapped start connecting");
             },
             child: Image.asset(

@@ -63,7 +63,7 @@ class AcceptingPage extends StatelessWidget {
             child: Text(user.partner, style: userNameStyle),
           ),
           Positioned(
-            top: screenHeight / 2 + screenWidth / 4 - 50,
+            top: screenHeight / 2 + screenWidth / 4 - 60,
             left: screenWidth / 2 - 100, // change to relative,
             child: ChalkButton(
               color: MyColors.six,
@@ -71,7 +71,6 @@ class AcceptingPage extends StatelessWidget {
               next: () {
                 Provider.of<UserProvider>(context, listen: false)
                     .setStatus("searching");
-
                 Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -82,50 +81,50 @@ class AcceptingPage extends StatelessWidget {
             ),
           ),
           Positioned(
-            top: screenHeight / 2 + screenWidth / 4 - 50,
+            top: screenHeight / 2 + screenWidth / 4 - 60,
             left: screenWidth / 2 + 30, // change to relative,
-            child: OnTapNavigator(
-                next: SearchingPage(),
-                child: ChalkButton(
-                  color: MyColors.seven,
-                  text: 'Accept',
-                  next: () async {
-                    Provider.of<UserProvider>(context, listen: false)
-                        .setStatus("validating");
-                    bool doCall = await hasAccepted(phone, partner);
-                    if (doCall) {
-                      showPopup(context, Text("Connecting..."));
-                      await Future.delayed(const Duration(seconds: 5));
-                      callNumber(partner);
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => MyHomePage(),
-                        ),
-                      );
-                      Provider.of<UserProvider>(context, listen: false)
-                          .setStatus("active");
-                    } else {
-                      showPopup(
-                          context, Text("Waiting for user to connect..."));
-                      await Future.delayed(const Duration(seconds: 10));
+            child: ChalkButton(
+              color: MyColors.seven,
+              text: 'Accept',
+              next: () async {
+                Provider.of<UserProvider>(context, listen: false)
+                    .setStatus("validating");
+                bool doCall = await hasAccepted(phone, partner);
+                if (doCall) {
+                  showPopup(context, Text("Connecting..."));
+                  await Future.delayed(const Duration(seconds: 5));
 
-                      bool isAccepted = await hasAccepted(phone, partner);
-                      if (!isAccepted) {
-                        Provider.of<UserProvider>(context, listen: false)
-                            .setStatus("active");
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => SearchingPage(),
-                          ),
-                        );
-                        showPopup(context,
-                            Text("Couldn't Connect. Searching more..."));
-                      }
-                    }
-                  },
-                )),
+                  callNumber(partner);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => MyHomePage(),
+                    ),
+                  );
+                  Provider.of<UserProvider>(context, listen: false)
+                      .setStatus("active");
+                } else {
+                  showPopup(context, Text("Waiting for user to connect..."));
+
+                  await Future.delayed(const Duration(seconds: 2));
+
+                  // bool denied = await hasAccepted(phone, partner);
+                  bool denied = true;
+                  if (denied) {
+                    showPopup(
+                        context, Text("Couldn't Connect. Searching more..."));
+                    Provider.of<UserProvider>(context, listen: false)
+                        .setStatus("active");
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => SearchingPage(),
+                      ),
+                    );
+                  }
+                }
+              },
+            ),
           ),
           Positioned(
             top: screenHeight / 2 + screenWidth / 2 - 50,
@@ -135,26 +134,24 @@ class AcceptingPage extends StatelessWidget {
               text: 'Cancel',
               next: () {
                 Provider.of<UserProvider>(context, listen: false)
-                    .setStatus("searching");
+                    .setStatus("active");
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => SearchingPage(),
+                    builder: (context) => MyHomePage(),
                   ),
                 );
               },
             ),
           ),
           Positioned(
-            top: screenHeight / 2 - 50,
-            left: screenWidth / 2 - 50, // change to relative,
-            child: CircleAvatar(
-                backgroundColor: MyColors.one,
-                child: Image.asset(
-                  'assets/startConnecting.png', // Replace with your image path
-                  width: 150.0,
-                  height: 150.0,
-                )),
+            top: screenHeight / 2 - 230,
+            left: screenWidth / 2 - 150, // change to relative,
+            child: Image.asset(
+              'assets/startConnecting.png', // Replace with your image path
+              width: 300,
+              height: 400,
+            ),
           ),
         ],
       ),

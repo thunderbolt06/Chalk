@@ -1,4 +1,4 @@
-import 'package:chalk/pages/connecting_page.dart';
+import 'package:chalk/pages/searching_page.dart';
 import 'package:chalk/pages/home_page.dart';
 import 'package:chalk/sections/circles_painter.dart';
 import 'package:chalk/utils/colors.dart';
@@ -97,14 +97,14 @@ class _ConnectedPageState extends State<ConnectedPage> {
             child: ChalkButton(
               color: MyColors.six,
               text: 'Speaker',
-              next: ConnectingPage(),
+              next: SearchingPage(),
             ),
           ),
           Positioned(
             top: screenHeight / 2 + screenWidth / 4 - 20,
             left: screenWidth / 2 + 30, // change to relative,
             child: OnTapNavigator(
-                next: ConnectingPage(),
+                next: SearchingPage(),
                 child: ChalkButton(
                   color: MyColors.seven,
                   text: 'Mute',

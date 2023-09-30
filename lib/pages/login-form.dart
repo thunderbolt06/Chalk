@@ -2,6 +2,7 @@ import 'package:chalk/pages/home_page.dart';
 import 'package:chalk/pages/signup-form.dart';
 import 'package:chalk/provider.dart';
 import 'package:chalk/sections/header_section.dart';
+import 'package:chalk/utils/show_popup_android.dart';
 import 'package:flutter/material.dart';
 import 'package:chalk/pages/contacts_page.dart';
 import 'package:chalk/pages/logs_page.dart';
@@ -43,7 +44,8 @@ class _LoginFormState extends State<LoginForm> {
       print('Login successful');
       // final userDetails = jsonDecode(response.body);
       // final user = User(phone: userDetails['phone']);
-      final user = User(phone: _phoneController.text);
+      final user = User(
+          phone: _phoneController.text, status: 'inactive', partner: "null");
 
       userProvider.setUser(user);
       Navigator.push(
@@ -53,6 +55,7 @@ class _LoginFormState extends State<LoginForm> {
     } else {
       print('Failed to login');
     }
+    // showPopup(context, Text(response.body));
   }
 
   @override

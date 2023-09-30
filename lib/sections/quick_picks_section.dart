@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:chalk/api/top_contacts.dart';
+import 'package:chalk/services/api_service.dart';
 import 'package:chalk/models/connection.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -79,7 +79,14 @@ class _QuickPicksSectionState extends State<QuickPicksSection> {
             ChalkButton(
               color: Colors.black,
               text: "More",
-              next: ContactsPage(),
+              next: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ContactsPage(),
+                  ),
+                );
+              },
             ),
             TextButton(
               onPressed: () {

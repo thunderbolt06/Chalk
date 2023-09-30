@@ -9,7 +9,7 @@ class HomePageBodySection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<UserProvider>(context).user;
-
+    // Provider.of<UserProvider>(context).setStatus("active");
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(

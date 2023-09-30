@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ChalkButton extends StatelessWidget {
-  final Widget next;
+  final Function next;
 
   const ChalkButton({
     super.key,
@@ -26,12 +26,7 @@ class ChalkButton extends StatelessWidget {
       ),
       child: TextButton(
         onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => next,
-            ),
-          );
+          next();
           // Handle "More" button tap
         },
         style: TextButton.styleFrom(

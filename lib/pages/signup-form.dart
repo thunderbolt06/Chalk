@@ -21,6 +21,8 @@ import 'package:provider/provider.dart';
 
 import 'package:chalk/config.dart';
 
+import '../utils/show_popup_android.dart';
+
 class SignupForm extends StatefulWidget {
   @override
   State<SignupForm> createState() => _SignupFormState();
@@ -28,9 +30,9 @@ class SignupForm extends StatefulWidget {
 
 class _SignupFormState extends State<SignupForm> {
   final _phoneController = TextEditingController();
+  final _nameController = TextEditingController();
   final _passwordController = TextEditingController();
   final _password2Controller = TextEditingController();
-  final _dobController = TextEditingController();
 
   Future<void> _signup(context) async {
     var userProvider = Provider.of<UserProvider>(context, listen: false);
@@ -42,9 +44,9 @@ class _SignupFormState extends State<SignupForm> {
       },
       body: jsonEncode(<String, String>{
         'phone': _phoneController.text,
+        'name': _nameController.text,
         'password': _passwordController.text,
         'password2': _password2Controller.text,
-        'date_of_birth': _dobController.text,
       }),
     );
 
@@ -53,7 +55,8 @@ class _SignupFormState extends State<SignupForm> {
       print('Signup successful');
 
       print(response.body);
-      final user = User(phone: _phoneController.text);
+      final user = User(
+          phone: _phoneController.text, status: 'inactive', partner: "null");
 
       userProvider.setUser(user);
       Navigator.push(
@@ -64,8 +67,10 @@ class _SignupFormState extends State<SignupForm> {
     } else {
       // If the server returns an unsuccessful response code, then throw an exception.
       print('Failed to signup');
-      print(response.body);
+      // print(response.body);
     }
+
+    // showPopup(context, Text(response.body));
   }
 
   @override
@@ -95,10 +100,10 @@ class _SignupFormState extends State<SignupForm> {
                   ),
                   SizedBox(height: 20.0),
                   TextField(
-                    controller: _dobController,
+                    controller: _nameController,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
-                      labelText: 'Date of Birth',
+                      labelText: 'Name',
                     ),
                   ),
                   SizedBox(height: 20.0),

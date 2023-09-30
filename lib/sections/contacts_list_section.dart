@@ -10,12 +10,12 @@ class ContactsList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 1000,
+      height: 500,
       width: 400,
       child: SingleChildScrollView(
         child: Container(
           width: 400,
-          height: 1000,
+          height: 500,
           child: ListView.builder(
             itemCount: contactNames.length,
             itemBuilder: (context, index) {
