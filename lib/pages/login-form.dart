@@ -22,7 +22,7 @@ class LoginForm extends StatefulWidget {
 }
 
 class _LoginFormState extends State<LoginForm> {
-  final _emailController = TextEditingController();
+  final _phoneController = TextEditingController();
   final _passwordController = TextEditingController();
 
   Future<void> _login(context) async {
@@ -34,28 +34,23 @@ class _LoginFormState extends State<LoginForm> {
         'Content-Type': 'application/json; charset=UTF-8',
       },
       body: jsonEncode(<String, String>{
-        'email': _emailController.text,
+        'phone': _phoneController.text,
         'password': _passwordController.text,
       }),
     );
 
     if (response.statusCode == 200) {
       print('Login successful');
-
       // final userDetails = jsonDecode(response.body);
-      // final user = User(email: userDetails['email']);
-      final user = User(email: _emailController.text);
+      // final user = User(phone: userDetails['phone']);
+      final user = User(phone: _phoneController.text);
 
       userProvider.setUser(user);
-      // Update the user in the provider
-      // Provider.of<UserProvider>(context, listen: false).setUser(user);
-
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => MyHomePage()),
       );
     } else {
-      // If the server returns an unsuccessful response code, then throw an exception.
       print('Failed to login');
     }
   }
@@ -80,10 +75,10 @@ class _LoginFormState extends State<LoginForm> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     TextField(
-                      controller: _emailController,
+                      controller: _phoneController,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
-                        labelText: 'Email',
+                        labelText: 'Phone',
                       ),
                     ),
                     SizedBox(height: 20.0),

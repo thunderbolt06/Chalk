@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 
 class User {
-  final String email;
-  // Add other user details here
+  final String phone;
 
-  User({required this.email});
+  User({required this.phone});
 }
 
 class UserProvider with ChangeNotifier {

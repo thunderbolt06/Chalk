@@ -19,13 +19,15 @@ import 'dart:convert';
 
 import 'package:provider/provider.dart';
 
+import 'package:chalk/config.dart';
+
 class SignupForm extends StatefulWidget {
   @override
   State<SignupForm> createState() => _SignupFormState();
 }
 
 class _SignupFormState extends State<SignupForm> {
-  final _emailController = TextEditingController();
+  final _phoneController = TextEditingController();
   final _passwordController = TextEditingController();
   final _password2Controller = TextEditingController();
   final _dobController = TextEditingController();
@@ -34,12 +36,12 @@ class _SignupFormState extends State<SignupForm> {
     var userProvider = Provider.of<UserProvider>(context, listen: false);
 
     final response = await http.post(
-      Uri.parse('http://127.0.0.1:8080/accounts/register'),
+      Uri.parse('${Config.CHALK_API_BASE_URL}/accounts/register'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
       body: jsonEncode(<String, String>{
-        'email': _emailController.text,
+        'phone': _phoneController.text,
         'password': _passwordController.text,
         'password2': _password2Controller.text,
         'date_of_birth': _dobController.text,
@@ -51,7 +53,7 @@ class _SignupFormState extends State<SignupForm> {
       print('Signup successful');
 
       print(response.body);
-      final user = User(email: _emailController.text);
+      final user = User(phone: _phoneController.text);
 
       userProvider.setUser(user);
       Navigator.push(
@@ -85,10 +87,10 @@ class _SignupFormState extends State<SignupForm> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
                   TextField(
-                    controller: _emailController,
+                    controller: _phoneController,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
-                      labelText: 'Email',
+                      labelText: 'Phone',
                     ),
                   ),
                   SizedBox(height: 20.0),

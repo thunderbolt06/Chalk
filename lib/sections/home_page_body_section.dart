@@ -26,7 +26,7 @@ class HomePageBodySection extends StatelessWidget {
             children: <Widget>[
               Center(
                   child: Text(
-                'Welcome, ${user?.email ?? 'Guest'}',
+                'Welcome, ${user?.phone ?? 'Guest'}',
                 style: TextStyle(fontWeight: FontWeight.bold),
               )),
               // AppHeader(),

@@ -66,7 +66,7 @@ class SettingsPage extends StatelessWidget {
             onTap: () {
               // Log out the user
               Provider.of<UserProvider>(context, listen: false)
-                  .setUser(User(email: 'guest'));
+                  .setUser(User(phone: 'guest'));
 
               // Optionally navigate to the login page
               Navigator.push(

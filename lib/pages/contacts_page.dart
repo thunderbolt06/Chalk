@@ -6,17 +6,23 @@ class ContactsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<Widget>(
-      future: getContactsWithPermission(),
-      builder: (BuildContext context, AsyncSnapshot<Widget> snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return Text("Waiting");
-        } else if (snapshot.hasError) {
-          return Text('Error: ${snapshot.error}');
-        } else {
-          return snapshot.data!;
-        }
-      },
+    return Column(
+      children: [
+        Container(
+          child: FutureBuilder<Widget>(
+            future: getContacts(context),
+            builder: (BuildContext context, AsyncSnapshot<Widget> snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return Text("Waiting");
+              } else if (snapshot.hasError) {
+                return Text('Error: ${snapshot.error}');
+              } else {
+                return snapshot.data!;
+              }
+            },
+          ),
+        ),
+      ],
     );
   }
 }
