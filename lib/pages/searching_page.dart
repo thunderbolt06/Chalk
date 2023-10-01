@@ -67,9 +67,8 @@ class SearchingPage extends StatelessWidget {
             child: ChalkButton(
               color: Colors.black,
               text: 'Cancel',
-              next: () {
-                Provider.of<UserProvider>(context, listen: false)
-                    .setStatus("active");
+              next: () async {
+                await setStatus(context, "active");
                 Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -87,17 +86,23 @@ class SearchingPage extends StatelessWidget {
                 if (sendToLogin(context)) {
                   return;
                 }
-                Provider.of<UserProvider>(context, listen: false)
-                    .setStatus("searching");
+                await setStatus(context, "searching");
+
                 final user =
                     Provider.of<UserProvider>(context, listen: false).user;
+                // hit searching on user status
+                Response response2 = await post(
+                  Uri.parse(
+                      '${Config.CHALK_API_BASE_URL}/status?phone=${user?.phone}&status=searching'),
+                  headers: <String, String>{
+                    'Content-Type': 'application/json; charset=UTF-8',
+                  },
+                );
                 String? partner = await searchPartner(user);
                 if (partner != null) {
                   Provider.of<UserProvider>(context, listen: false)
                       .setPartner(partner);
-
-                  Provider.of<UserProvider>(context, listen: false)
-                      .setStatus("accepting");
+                  await setStatus(context, "accepting");
                   Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -105,7 +110,7 @@ class SearchingPage extends StatelessWidget {
                     ),
                   );
                 }
-                // showPopup(context, Text(partner.toString()));
+                showPopup(context, Text(partner.toString()));
               },
               child: Image.asset(
                 'assets/startConnecting.png',

@@ -70,7 +70,7 @@ class _SignupFormState extends State<SignupForm> {
       // print(response.body);
     }
 
-    // showPopup(context, Text(response.body));
+    showPopup(context, Text(response.body));
   }
 
   @override

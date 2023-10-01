@@ -55,7 +55,7 @@ class _LoginFormState extends State<LoginForm> {
     } else {
       print('Failed to login');
     }
-    // showPopup(context, Text(response.body));
+    showPopup(context, Text(response.body));
   }
 
   @override

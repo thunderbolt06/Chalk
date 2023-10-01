@@ -68,10 +68,8 @@ class AcceptingPage extends StatelessWidget {
             child: ChalkButton(
               color: MyColors.six,
               text: 'Next',
-              next: () {
-                Provider.of<UserProvider>(context, listen: false)
-                    .setStatus("searching");
-
+              next: () async {
+                await setStatus(context, "searching");
                 Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -90,8 +88,7 @@ class AcceptingPage extends StatelessWidget {
                   color: MyColors.seven,
                   text: 'Accept',
                   next: () async {
-                    Provider.of<UserProvider>(context, listen: false)
-                        .setStatus("validating");
+                    await setStatus(context, "validating");
                     bool doCall = await hasAccepted(phone, partner);
                     if (doCall) {
                       showPopup(context, Text("Connecting..."));
@@ -103,8 +100,7 @@ class AcceptingPage extends StatelessWidget {
                           builder: (context) => MyHomePage(),
                         ),
                       );
-                      Provider.of<UserProvider>(context, listen: false)
-                          .setStatus("active");
+                      await setStatus(context, "active");
                     } else {
                       showPopup(
                           context, Text("Waiting for user to connect..."));
@@ -112,8 +108,7 @@ class AcceptingPage extends StatelessWidget {
 
                       bool isAccepted = await hasAccepted(phone, partner);
                       if (!isAccepted) {
-                        Provider.of<UserProvider>(context, listen: false)
-                            .setStatus("active");
+                        await setStatus(context, "active");
                         Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -133,9 +128,8 @@ class AcceptingPage extends StatelessWidget {
             child: ChalkButton(
               color: Colors.black,
               text: 'Cancel',
-              next: () {
-                Provider.of<UserProvider>(context, listen: false)
-                    .setStatus("searching");
+              next: () async {
+                await setStatus(context, "searching");
                 Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -218,4 +212,16 @@ callNumber(String phoneNumber) async {
   String number = phoneNumber;
   print("calling $number");
   await FlutterPhoneDirectCaller.callNumber(number);
+}
+
+Future<Response> setStatus(context, String status1) {
+  final user = Provider.of<UserProvider>(context, listen: false).user;
+  Provider.of<UserProvider>(context, listen: false).setStatus("active");
+  return post(
+    Uri.parse(
+        '${Config.CHALK_API_BASE_URL}/status?phone=${user?.phone}&status=$status1'),
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
+  );
 }

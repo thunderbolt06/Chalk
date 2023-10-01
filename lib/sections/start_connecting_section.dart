@@ -1,9 +1,12 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:chalk/services/temp_service.dart';
 import 'package:chalk/utils/colors.dart';
 import 'package:chalk/utils/on_tap_navigator.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../pages/accepting_page.dart';
 import '../pages/searching_page.dart';
 import '../provider.dart';
 import '../services/api_service.dart';
@@ -25,8 +28,7 @@ class StartConnectingSection extends StatelessWidget {
               if (sendToLogin(context)) {
                 return;
               }
-              Provider.of<UserProvider>(context, listen: false)
-                  .setStatus("searching");
+              await setStatus(context, "searching");
               Navigator.push(
                 context,
                 MaterialPageRoute(
